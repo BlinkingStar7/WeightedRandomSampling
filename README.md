@@ -37,4 +37,10 @@ go run cmd/compareWRS/main.go -file-name=scenarios/scenario_10_1.txt -wrs=compar
 ```
 
 # Result
-기본으로 제공된 시나리오 파일들에 대하여 분석 결과를 `/result`폴더에 추가하였습니다.
+기본으로 제공된 시나리오 파일들에 대하여 분석 결과를 `/results`폴더에 추가하였습니다. run_scenarios.sh 를 통해 시나리오 폴더 내의 모든 시나리오의 실행 결과를 저장할 수 있습니다.
+
+## Example
+```
+$ chmod +x run_scenarios.sh
+$ ./run_scenarios.sh
+```
