@@ -1,19 +1,19 @@
-package generator
+package main
 
 import (
 	"bufio"
 	"fmt"
 	"math/rand"
 	"os"
-	"time"
+)
+
+const (
+	WEIGHT_MAX = 10000
 )
 
 // generateScenario generates a scenario file based on user input
-func generateScenario(N int, fileName string) (string, error) {
-	filePath := "./tests/" + fileName
-
-	// Seed the random number generator
-	rand.Seed(time.Now().UnixNano())
+func generateScenario(N, K int) (string, error) {
+	filePath := fmt.Sprintf("./scenarios/scenario_%d_%d.txt", N, K)
 
 	// Open file for writing
 	file, err := os.Create(filePath)
@@ -26,14 +26,14 @@ func generateScenario(N int, fileName string) (string, error) {
 	writer := bufio.NewWriter(file)
 
 	// Write the number of elements as the first line
-	_, err = writer.WriteString(fmt.Sprintf("%d\n", N))
+	_, err = writer.WriteString(fmt.Sprintf("%d %d\n", N, K))
 	if err != nil {
 		return "", err
 	}
 
 	// Generate N random weights and write each to the file
 	for i := 0; i < N; i++ {
-		weight := rand.Intn(10000) // Generates a number in [0, 9999]
+		weight := rand.Intn(WEIGHT_MAX + 1) // Generates a number in [0, 9999]
 		_, err = writer.WriteString(fmt.Sprintf("%d\n", weight))
 		if err != nil {
 			return "", err
@@ -50,8 +50,7 @@ func generateScenario(N int, fileName string) (string, error) {
 
 func main() {
 	// Example usage (replace with actual user input)
-	var N int
-	var fileName string
+	var N, K int
 
 	fmt.Print("input N: ")
 	_, err := fmt.Scanf("%d", &N)
@@ -60,14 +59,14 @@ func main() {
 		return
 	}
 
-	fmt.Print("input FileName: ")
-	_, err = fmt.Scan(&fileName)
+	fmt.Print("input K: ")
+	_, err = fmt.Scanf("%d", &K)
 	if err != nil {
-		fmt.Println("Error reading FileName:", err)
+		fmt.Println("Error reading K:", err)
 		return
 	}
 
-	result, err := generateScenario(N, fileName)
+	result, err := generateScenario(N, K)
 	if err != nil {
 		fmt.Println("Error generating scenario:", err)
 	} else {
