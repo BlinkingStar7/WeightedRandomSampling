@@ -32,14 +32,14 @@ func runSimulation(c, fileName string, verbose bool) {
 		fmt.Println("Invalid option for WhichVersionofWRS. Please use 'naive', 'fenwick', or 'python'.")
 	}
 
+	fmt.Printf("%s Weighted Random Sampling Comparison on %d Trials\n", c, simulator.NUM_OF_TRIAL)
+	fmt.Printf("Elapsed time: %v\n", t)
 	if verbose {
 		fmt.Println("Probability(%) of each element being selected:")
 		for i, v := range p {
 			fmt.Printf("Element %d: %.2f\n", i, v)
 		}
 	}
-	fmt.Printf("%s Weighted Random Sampling Comparison on %d Trials\n", c, simulator.NUM_OF_TRIAL)
-	fmt.Printf("Elapsed time: %v\n", t)
 }
 
 func main() {
@@ -77,26 +77,33 @@ func main() {
 
 		// print table comparing probabilities
 		fmt.Printf("Weighted Random Sampling Comparison on %d Trials\n", simulator.NUM_OF_TRIAL)
-		if *verbose {
-			fmt.Println("Probability(%) of each element being selected:")
-			fmt.Println("Element\t| Naive\t| Fenw\t| Pyth\t| Diff(Max-Min)")
-			fmt.Println("---------------------------------------------")
-		}
-		// store indicies that difference is bigger than 1
+		fmt.Println("---------------------------------------------")
+
 		var diffIdx []int
 		for i := 0; i < len(pNaive); i++ {
 			// difference is max(naive, fenw, pyth) - min(naive, fenw, pyth)
 			diff := math.Max(math.Max(pNaive[i], pFenwick[i]), pPython[i]) - math.Min(math.Min(pNaive[i], pFenwick[i]), pPython[i])
-			if *verbose {
-				fmt.Printf("%d\t| %.2f\t| %.2f\t| %.2f\t| %.2f\n", i, pNaive[i], pFenwick[i], pPython[i], diff)
-			}
 			if diff > 1 {
 				diffIdx = append(diffIdx, i)
 			}
 		}
-		fmt.Println("----------------------------------------------")
+
 		fmt.Println("Difference is bigger than 1 in the following indices:", diffIdx)
-		fmt.Printf("Elapsed time: Naive: %v, Fenwick: %v, Python: %v\n", tNaive, tFenwick, tPython)
+		fmt.Printf("Elapsed time: Naive: %v, Fenwick: %v, Python: %v\n\n", tNaive, tFenwick, tPython)
+		fmt.Println("---------------------------------------------")
+
+		if *verbose {
+			fmt.Println("Probability(%) of each element being selected:")
+			fmt.Println("Element\t| Naive\t| Fenw\t| Pyth\t| Diff(Max-Min)")
+			fmt.Println("---------------------------------------------")
+			for i := 0; i < len(pNaive); i++ {
+				// difference is max(naive, fenw, pyth) - min(naive, fenw, pyth)
+				diff := math.Max(math.Max(pNaive[i], pFenwick[i]), pPython[i]) - math.Min(math.Min(pNaive[i], pFenwick[i]), pPython[i])
+				if *verbose {
+					fmt.Printf("%d\t| %.2f\t| %.2f\t| %.2f\t| %.2f\n", i, pNaive[i], pFenwick[i], pPython[i], diff)
+				}
+			}
+		}
 	default:
 		fmt.Println("Invalid option for WhichVersionofWRS. Please use 'naive', 'fenwick', or 'both'.")
 	}

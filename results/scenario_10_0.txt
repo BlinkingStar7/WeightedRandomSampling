@@ -1,0 +1,19 @@
+Weighted Random Sampling Comparison on 100000 Trials
+---------------------------------------------
+Difference is bigger than 1 in the following indices: []
+Elapsed time: Naive: 3.173709ms, Fenwick: 6.988917ms, Python: 911.032199ms
+
+---------------------------------------------
+Probability(%) of each element being selected:
+Element	| Naive	| Fenw	| Pyth	| Diff(Max-Min)
+---------------------------------------------
+0	| 0.00	| 0.00	| 0.00	| 0.00
+1	| 0.00	| 0.00	| 0.00	| 0.00
+2	| 0.00	| 0.00	| 0.00	| 0.00
+3	| 0.00	| 0.00	| 0.00	| 0.00
+4	| 0.00	| 0.00	| 0.00	| 0.00
+5	| 0.00	| 0.00	| 0.00	| 0.00
+6	| 0.00	| 0.00	| 0.00	| 0.00
+7	| 0.00	| 0.00	| 0.00	| 0.00
+8	| 0.00	| 0.00	| 0.00	| 0.00
+9	| 0.00	| 0.00	| 0.00	| 0.00
