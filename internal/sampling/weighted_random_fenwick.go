@@ -1,8 +1,6 @@
 package sampling
 
-import (
-	"math/rand"
-)
+import "math/rand"
 
 type WeightedRandomFenwick struct {
 	fw *FenwickTree
@@ -13,9 +11,12 @@ func NewWeightedRandomFenwick() WeightedRandomSampling {
 }
 
 func (w *WeightedRandomFenwick) selectOne() int {
-	sum := w.fw.Sum(w.fw.size - 1)
-	r := rand.Intn(sum)
+	sum := w.fw.GetTotalSum()
+	if sum == 0 {
+		return -1 // TODO: Return an error
+	}
 
+	r := rand.Intn(sum)
 	return w.fw.UpperBound(r)
 }
 

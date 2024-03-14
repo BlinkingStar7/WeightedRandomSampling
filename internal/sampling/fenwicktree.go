@@ -45,6 +45,10 @@ func (fw *FenwickTree) Sum(i int) int {
 	return sum
 }
 
+func (fw *FenwickTree) GetTotalSum() int {
+	return fw.Sum(fw.size - 1)
+}
+
 // UpperBound returns the index of the first element in the tree that has a prefix sum greater than bound.
 func (fw *FenwickTree) UpperBound(bound int) int {
 	idx := 0
@@ -55,7 +59,7 @@ func (fw *FenwickTree) UpperBound(bound int) int {
 	}
 
 	for ; k > 0; k >>= 1 {
-		if idx+k <= fw.size && sum+fw.tree[idx+k] < bound {
+		if idx+k <= fw.size && (fw.tree[idx+k] == 0 || sum+fw.tree[idx+k] < bound) {
 			sum += fw.tree[idx+k]
 			idx += k
 		}
