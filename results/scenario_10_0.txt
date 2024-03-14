@@ -1,7 +1,7 @@
 Weighted Random Sampling Comparison on 100000 Trials
 ---------------------------------------------
-Difference is bigger than 1 in the following indices: []
-Elapsed time: Naive: 3.173709ms, Fenwick: 6.988917ms, Python: 911.032199ms
+Difference is bigger than 1%p in the following indices: []
+Elapsed time: Naive: 3.283917ms, Fenwick: 6.571375ms, Python: 921.228647ms
 
 ---------------------------------------------
 Probability(%) of each element being selected:

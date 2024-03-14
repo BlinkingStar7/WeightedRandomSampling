@@ -88,7 +88,7 @@ func main() {
 			}
 		}
 
-		fmt.Println("Difference is bigger than 1 in the following indices:", diffIdx)
+		fmt.Println("Difference is bigger than 1%p in the following indices:", diffIdx)
 		fmt.Printf("Elapsed time: Naive: %v, Fenwick: %v, Python: %v\n\n", tNaive, tFenwick, tPython)
 		fmt.Println("---------------------------------------------")
 
