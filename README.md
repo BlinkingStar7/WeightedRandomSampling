@@ -1,5 +1,5 @@
 # Description
-원소의 개수 N, 뽑고자 하는 개수 K, 각 원소의 가중치 Weights가 주어질 때 Weighted Random Sampling(WRS)를 다음과 같은 3가지 방식으로 구현하고 정확도와 성능을 비교합니다.
+원소의 개수 N, 뽑고자 하는 개수 K, 각 원소의 가중치 Weights가 주어질 때 Weighted Random Sampling(WRS)를 다음과 같은 3가지 방식으로 구현하고 정확도와 성능을 비교합니다. 여러 테스트 시나리오에서 Sampling 3 방법이 다른 레퍼런스 솔루션과 비교하여 오차가 1% 이내이고 훨씬 빠른 시간에 구하는 것을 확인하였습니다.
 
 ## Sampling 1. Python Reference Solution
 - Python의 `np.random.choice` 를 통해 구현된 레퍼런스 WRS 입니다.
