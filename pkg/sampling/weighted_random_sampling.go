@@ -1,12 +1,12 @@
 package sampling
 
-type weightedRandomSampling interface {
+type WeightedRandomSampling interface {
 	WRS(weights []int, k int) []int
 }
 
 type DefaultWeightedRandomSampling struct{}
 
-func NewDefaultWeightedRandomSampling() weightedRandomSampling {
+func NewDefaultWeightedRandomSampling() WeightedRandomSampling {
 	return &DefaultWeightedRandomSampling{}
 }
 

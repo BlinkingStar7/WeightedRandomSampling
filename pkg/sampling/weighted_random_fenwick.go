@@ -8,7 +8,7 @@ type WeightedRandomFenwick struct {
 	fw *FenwickTree
 }
 
-func NewWeightedRandomFenwick() weightedRandomSampling {
+func NewWeightedRandomFenwick() WeightedRandomSampling {
 	return &WeightedRandomFenwick{}
 }
 

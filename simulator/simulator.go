@@ -1,23 +1,28 @@
 package simulator
 
 import (
+	"WeightedRandomSampling/sampling"
 	"fmt"
 	"math/rand"
 	"time"
 )
 
+const (
+	NUM_OF_TRIAL = 100000
+)
+
 type Simulator struct {
-	Sampler WeightedRandomSampling
+	Sampler sampling.WeightedRandomSampling
 }
 
-func NewSimulator(w weightedRandomSampling) Simulator {
+func NewSimulator(w sampling.WeightedRandomSampling) Simulator {
 	return Simulator{
 		Sampler: w,
 	}
 }
 
 func (s *Simulator) Run() {
-	probabilities := s.Simulate(100000)
+	probabilities := s.Simulate(NUM_OF_TRIAL)
 	for _, p := range probabilities {
 		fmt.Printf("%.5f\n", p)
 	}

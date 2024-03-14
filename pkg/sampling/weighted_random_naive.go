@@ -6,7 +6,7 @@ import (
 
 type WeightedRandomNaive struct{}
 
-func NewWeightedRandomNaive() weightedRandomSampling {
+func NewWeightedRandomNaive() WeightedRandomSampling {
 	return &WeightedRandomNaive{}
 }
 
