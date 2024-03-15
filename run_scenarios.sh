@@ -4,7 +4,7 @@
 SCENARIOS_DIR="./scenarios"
 
 # Directory to save results
-RESULTS_DIR="./results"
+RESULTS_DIR="./results/$(date +'%Y-%m-%d_%H-%M-%S')"
 
 # Ensure the results directory exists
 mkdir -p "$RESULTS_DIR"

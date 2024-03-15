@@ -14,6 +14,7 @@ const (
 	NAIVE   = "naive"
 	FENWICK = "fenwick"
 	PYTHON  = "python"
+	FAST    = "fast"
 )
 
 func runSimulation(c, fileName string, verbose bool) {
@@ -26,10 +27,13 @@ func runSimulation(c, fileName string, verbose bool) {
 	case FENWICK:
 		Simulator := simulator.NewSimulator(sampling.NewWeightedRandomFenwick(), fileName)
 		p, t = Simulator.Simulate()
+	case FAST:
+		Simulator := simulator.NewSimulator(sampling.NewWeightedRandomFast(), fileName)
+		p, t = Simulator.Simulate()
 	case PYTHON:
 		p, t = referenceSampling.Simulate(fileName)
 	default:
-		fmt.Println("Invalid option for WhichVersionofWRS. Please use 'naive', 'fenwick', or 'python'.")
+		fmt.Println("Invalid option for WhichVersionofWRS. Please use 'naive', 'fenwick', 'fast', or 'python'.")
 	}
 
 	fmt.Printf("%s Weighted Random Sampling Comparison on %d Trials\n", c, simulator.NUM_OF_TRIAL)
@@ -44,7 +48,7 @@ func runSimulation(c, fileName string, verbose bool) {
 
 func main() {
 	// Define command-line flags
-	whichVersion := flag.String("wrs", "compare", "which version to run WRS (naive, fenwick, python, compare)")
+	whichVersion := flag.String("wrs", "compare", "which version to run WRS (naive, fenwick, fast, python, compare)")
 	fileName := flag.String("file-name", "invalid", "get a file name that is used")
 	verbose := flag.Bool("verbose", false, "a bool")
 
@@ -61,12 +65,50 @@ func main() {
 	}
 
 	switch *whichVersion {
-	case "naive":
+	case NAIVE:
 		runSimulation(NAIVE, *fileName, *verbose)
-	case "fenwick":
+	case FENWICK:
 		runSimulation(FENWICK, *fileName, *verbose)
-	case "python":
+	case PYTHON:
 		runSimulation(PYTHON, *fileName, *verbose)
+	case FAST:
+		runSimulation(FAST, *fileName, *verbose)
+	case "both":
+		FastSimulator := simulator.NewSimulator(sampling.NewWeightedRandomFast(), *fileName)
+		FenwickSimulator := simulator.NewSimulator(sampling.NewWeightedRandomFenwick(), *fileName)
+
+		pFast, tFast := FastSimulator.Simulate()
+		pFenwick, tFenwick := FenwickSimulator.Simulate()
+
+		// print table comparing probabilities
+		fmt.Printf("Weighted Random Sampling Comparison on %d Trials\n", simulator.NUM_OF_TRIAL)
+		fmt.Println("---------------------------------------------")
+
+		var diffIdx []int
+		for i := 0; i < len(pFast); i++ {
+			// difference is max(fast, fenw) - min(fast, fenw)
+			diff := math.Max(pFast[i], pFenwick[i]) - math.Min(pFast[i], pFenwick[i])
+			if diff > 1 {
+				diffIdx = append(diffIdx, i)
+			}
+		}
+
+		fmt.Println("Difference is bigger than 1% p in the following indices:", diffIdx)
+		fmt.Printf("Elapsed time: Fast: %v, Fenwick: %v\n\n", tFast, tFenwick)
+		fmt.Println("---------------------------------------------")
+
+		if *verbose {
+			fmt.Println("Probability(%) of each element being selected:")
+			fmt.Println("Element\t| Fast\t| Fenw\t| Diff(Max-Min)")
+			fmt.Println("---------------------------------------------")
+			for i := 0; i < len(pFast); i++ {
+				// difference is max(fast, fenw) - min(fast, fenw)
+				diff := math.Max(pFast[i], pFenwick[i]) - math.Min(pFast[i], pFenwick[i])
+				if *verbose {
+					fmt.Printf("%d\t| %.2f\t| %.2f\t| %.2f\n", i, pFast[i], pFenwick[i], diff)
+				}
+			}
+		}
 	case "compare":
 		NaiveSimulator := simulator.NewSimulator(sampling.NewWeightedRandomNaive(), *fileName)
 		FenwickSimulator := simulator.NewSimulator(sampling.NewWeightedRandomFenwick(), *fileName)
@@ -88,7 +130,7 @@ func main() {
 			}
 		}
 
-		fmt.Println("Difference is bigger than 1%p in the following indices:", diffIdx)
+		fmt.Println("Difference is bigger than 1% p in the following indices:", diffIdx)
 		fmt.Printf("Elapsed time: Naive: %v, Fenwick: %v, Python: %v\n\n", tNaive, tFenwick, tPython)
 		fmt.Println("---------------------------------------------")
 

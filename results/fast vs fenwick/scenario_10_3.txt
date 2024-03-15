@@ -1,0 +1,19 @@
+Weighted Random Sampling Comparison on 100000 Trials
+---------------------------------------------
+Difference is bigger than 1% p in the following indices: []
+Elapsed time: Fast: 71.278042ms, Fenwick: 17.36875ms
+
+---------------------------------------------
+Probability(%) of each element being selected:
+Element	| Fast	| Fenw	| Diff(Max-Min)
+---------------------------------------------
+0	| 9.21	| 9.18	| 0.03
+1	| 75.45	| 75.75	| 0.30
+2	| 25.90	| 25.81	| 0.09
+3	| 32.26	| 32.23	| 0.03
+4	| 12.86	| 12.96	| 0.10
+5	| 20.73	| 20.97	| 0.24
+6	| 42.68	| 42.51	| 0.17
+7	| 32.69	| 32.57	| 0.12
+8	| 39.46	| 39.34	| 0.12
+9	| 8.77	| 8.68	| 0.09
